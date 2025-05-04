@@ -1,37 +1,48 @@
+/* Estilo base do body */
 body {
     background-color: rgb(43, 43, 43);
     background-image: url('fundo2.jpg');
-    background-size:cover;
-}
-main {
-    width: 40vw;
-    height: 550px;
-    border-radius: 10px;
-    margin: 20px auto;
-    overflow-y:hidden;
-    display: block;
-    
     background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* Fixa o fundo */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Container principal da calculadora */
+main {
+    width: 90vw; /* Usa 90% da largura da tela */
+    max-width: 400px; /* Limita a largura máxima para não estourar em telas grandes */
+    margin: 20px auto;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 1rem;
 }
-#geral {
-    border: 1px solid rgb(255, 115, 0);
-    width: 60%;
-    height: 90%;
-    margin: 25px auto;
-    border-radius: 10px;
-    background-color: rgb(255, 115, 0);
-}
-#borda {
 
+/* Estrutura externa da calculadora */
+#geral {
+    width: 100%;
+    background-color: rgb(255, 115, 0);
+    border: 1px solid rgb(255, 115, 0);
+    border-radius: 10px;
+    padding: 1rem 0;
+    box-sizing: border-box;
+}
+
+/* Caixa preta arredondada da calculadora */
+#borda {
     width: 95%;
-    height: 95%;
-    margin: 11px auto;
-    position: relative;
+    margin: auto;
     background-color: black;
     border-radius: 10px;
+    padding: 1rem 0;
+    box-sizing: border-box;
 }
 #display {
     width: 85%;
@@ -45,7 +56,7 @@ main {
     content: '';
     border: 2px solid orangered;
     position: absolute;
-    width: 99%;
+    width: 100%;
     left: -1px;
     top: 155px;
 }
@@ -120,19 +131,39 @@ button.clicado:hover {
     background: linear-gradient(310deg, rgb(32, 32, 32), rgb(53, 53, 53), rgb(88, 88, 88));
     transition: .2s ease ;
 }
-@media screen and (max-width: 400px) {
-    body {
-        margin: 0;
-    }
+/* RESPONSIVIDADE */
+@media screen and (max-width: 480px) {
     main {
         width: 100vw;
-        height: 100vh;
-        margin: 0 auto;
+        border-radius: 0;
+        padding: 0.5rem;
         backdrop-filter: none;
         -webkit-backdrop-filter: none;
     }
+
     #geral {
-        width: 80%;
-        margin: 25px auto;
+        padding: 0.5rem 0;
+    }
+
+    #display {
+        width: 95%;
+        padding: 0.8rem 0;
+    }
+
+    #contas {
+        font-size: 1rem;
+    }
+
+    #resultado {
+        font-size: 1.5rem;
+        padding: 0 0.8rem ;
+    }
+
+    #teclas {
+        width: 95%;
+    }
+
+    button {
+        font-size: 1rem;
     }
 }
