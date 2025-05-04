@@ -18,28 +18,60 @@ const clicou = (data) => {
 
 
 //calculos
-
 const insert = (num) => {
-    document.querySelector('#contas').innerHTML += num;
-}
+    const contas = document.querySelector('#contas');
+    const resultado = document.querySelector('#resultado');
+    const operadores = ['+', '-', '*', '/', '^'];
+    const raiz = '√';
+
+    if (contas.innerHTML === '' && resultado.innerHTML !== '') {
+        if (operadores.includes(num) || num === raiz) {
+            contas.innerHTML = resultado.innerHTML + num;
+        } else {
+            contas.innerHTML = num;
+            resultado.innerHTML = '';
+        }
+    } else {
+        const atual = contas.innerHTML;
+        const ultimo = atual[atual.length - 1];
+
+        // Impede dois operadores seguidos (exceto raiz)
+        if (operadores.includes(ultimo) && operadores.includes(num)) {
+            contas.innerHTML = atual.slice(0, -1) + num;
+
+        // Impede dois '√' seguidos
+        } else if (ultimo === raiz && num === raiz) {
+            return; // Ignora o segundo √
+
+        } else {
+            contas.innerHTML += num;
+        }
+    }
+};
+
+
 
 const calcular = () => {
     let contas = document.querySelector('#contas').innerHTML;
-    if(contas) {
-        let final = (document.querySelector('#contas').innerHTML = eval(contas));
-        document.querySelector('#contas').innerHTML = '';
-        document.querySelector('#resultado').innerHTML = final;
-    }else{
+
+    if (contas) {
+        // Substitui todas as ocorrências de √n por Math.sqrt(n)
+        contas = contas.replace(/√(\d+(\.\d+)?)/g, 'Math.sqrt($1)');
+
+        // Substitui potências do tipo 2^3
+        contas = contas.replace(/(\d+)\^(\d+)/g, 'Math.pow($1,$2)');
+
+        try {
+            let resultadoFinal = eval(contas);
+            document.querySelector('#resultado').innerHTML = resultadoFinal;
+            document.querySelector('#contas').innerHTML = '';
+        } catch (e) {
+            document.querySelector('#resultado').innerHTML = 'Erro';
+        }
+    } else {
         document.querySelector('#resultado').innerHTML = '0';
     }
-}
-//=========================================================
-
-
-//funções quadrado e raiz quadrada
-
-
-
+};
 
 
 //=========================================================
